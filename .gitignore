@@ -1,0 +1,18 @@
+# Temporäre IntelliJ-Dateien
+**/out/
+*.iws
+
+# Temporäre TeX-Dateien
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.toc
+
+# Versteckte Dateien (aber .gitignore behalten)
+.*
+!.gitignore
+
