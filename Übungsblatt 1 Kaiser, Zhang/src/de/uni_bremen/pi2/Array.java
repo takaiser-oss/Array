@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Array<E> implements Iterable<E> {
-    //int size=0;
+    private int size;
     private int capacity;
     private E[] puffer;
 
     public Array(int capacity) {
-
+        size=0;
         this.capacity = capacity;
         puffer = (E[]) new Object[capacity];
 
@@ -20,7 +20,7 @@ public class Array<E> implements Iterable<E> {
     }
 
     int size() {
-        return puffer.length;
+        return size;
 
     }
 
@@ -32,16 +32,18 @@ public class Array<E> implements Iterable<E> {
         if (index < 0 || (capacity == 0 && index > 1 || index > capacity * 2)) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        if (index >= capacity) {
+        if(index >= capacity) {
             if (capacity == 0) {
-                puffer = Arrays.copyOf(puffer, 1);
+                capacity=1;
+                //puffer = Arrays.copyOf(puffer, 1);
             } else {
                 puffer = Arrays.copyOf(puffer, capacity * 2);
             }
-            capacity = puffer.length;
+            capacity +=capacity;
 
         }
         puffer[index] = value;
+        size++;
     }
 
     E get(int index) {
@@ -54,6 +56,13 @@ public class Array<E> implements Iterable<E> {
     @Override
     // Erzeugen Iterator
     public Iterator<E> iterator() {
+        Iterator<E> it = Arrays.stream(puffer).iterator();
+        while (it.hasNext()){
+            if(it.next()==null) it.remove();
+        }
+        return it;
+    }
+        /*
         return new Iterator<E>() {
             int index;
 
@@ -69,9 +78,11 @@ public class Array<E> implements Iterable<E> {
                     throw new NoSuchElementException();
                 }
                 return puffer[index++];
-            }
-        };
-    }
+
+            }*/
+
+
+
 }
 
 
