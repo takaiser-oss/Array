@@ -10,16 +10,20 @@ import java.util.Iterator;
 
 public class ArrayTest{
 
-    static void printArray(Array a){
+    static <E>void printArray(Array<E> a){
         Iterator it=a.iterator();
         while (it.hasNext()){
             System.out.println(it.next());
         }
     }
+
+
 public static void main(String[]args){
     //Test: constructor, methode size() and capacity()
     //Test: when capacity is negative, IllegalArgumentException will be thrown
-    /*try {
+
+
+    try {
         Array<Integer> test0=new Array<>(-5);
         fail();//no exception is thrown
     }
@@ -28,7 +32,7 @@ public static void main(String[]args){
     }
      catch (Exception e){
          fail();//did not get the excepted exception
-     }*/
+     }
 
 
     //Boundary test : when capacity is 0
@@ -37,9 +41,9 @@ public static void main(String[]args){
     assertEquals(0,test1.capacity());
     System.out.println(test1.size());
     assertEquals(0,test1.size());
-    //test1.set(3,123);
-    //test1.set(5,456);
-    //test1.set(12,789);
+    test1.set(3,123);
+    test1.set(5,456);
+    test1.set(12,789);
 
     Array<String> test2 =new Array<>(10);
     System.out.println(test2.capacity());
@@ -66,6 +70,7 @@ public static void main(String[]args){
     //test when Index is negative
     try {
         test2.set(-3,"kjf");
+        fail();
     }
     catch (ArrayIndexOutOfBoundsException e){
         assertTrue(true);
@@ -73,16 +78,7 @@ public static void main(String[]args){
     catch (Exception e){
         fail();
     }
-    //test when Index is bigger than 2*capacity
-    try {
-        test2.set(135,"kjf");
-    }
-    catch (ArrayIndexOutOfBoundsException e){
-        assertTrue(true);
-    }
-    catch (Exception e){
-        fail();
-    }
+
 
     //System.out.println(test2.get(3));
     //System.out.println(test2.get(4));

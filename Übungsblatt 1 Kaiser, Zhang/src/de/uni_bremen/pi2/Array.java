@@ -8,20 +8,21 @@ public class Array<E> implements Iterable<E> {
     private int capacity;
     private E[] puffer;
 
+    @SuppressWarnings("unchecked")
     public Array(int capacity) {
         size=0;
         this.capacity = capacity;
         puffer = (E[]) new Object[capacity];
-
         if (capacity < 0) {
-
             throw new IllegalArgumentException("capacity");
         }
     }
 
     int size() {
+        for(int i=(capacity-1);i>0;i--){
+            if(puffer[i]!=null) size=i+1;
+        }
         return size;
-
     }
 
     int capacity() {
@@ -29,21 +30,13 @@ public class Array<E> implements Iterable<E> {
     }
 
     void set(int index, E value) {
-        if (index < 0 || (capacity == 0 && index > 1 || index > capacity * 2)) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-        if(index >= capacity) {
-            if (capacity == 0) {
-                capacity=1;
-                //puffer = Arrays.copyOf(puffer, 1);
-            } else {
-                puffer = Arrays.copyOf(puffer, capacity * 2);
-            }
+        if (index < 0 ) throw new ArrayIndexOutOfBoundsException();
+        if (capacity == 0) capacity=1;
+        while(index >= capacity) {
+            puffer = Arrays.copyOf(puffer, capacity * 2);
             capacity +=capacity;
-
         }
         puffer[index] = value;
-        size++;
     }
 
     E get(int index) {
@@ -56,13 +49,7 @@ public class Array<E> implements Iterable<E> {
     @Override
     // Erzeugen Iterator
     public Iterator<E> iterator() {
-        Iterator<E> it = Arrays.stream(puffer).iterator();
-        while (it.hasNext()){
-            if(it.next()==null) it.remove();
-        }
-        return it;
-    }
-        /*
+
         return new Iterator<E>() {
             int index;
 
@@ -79,10 +66,10 @@ public class Array<E> implements Iterable<E> {
                 }
                 return puffer[index++];
 
-            }*/
+            }
+        };
 
-
-
+    }
 }
 
 
