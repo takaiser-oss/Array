@@ -19,8 +19,11 @@ public class Array<E> implements Iterable<E> {
     }
 
     int size() {
-        for(int i=(capacity-1);i>0;i--){
-            if(puffer[i]!=null) size=i+1;
+
+        for(int i=(capacity-1);i>0;--i){
+            if(puffer[i]!=null) {
+                size=i+1;
+            }
         }
         return size;
     }
@@ -37,6 +40,7 @@ public class Array<E> implements Iterable<E> {
             capacity +=capacity;
         }
         puffer[index] = value;
+
     }
 
     E get(int index) {

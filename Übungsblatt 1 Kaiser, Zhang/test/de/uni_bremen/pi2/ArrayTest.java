@@ -10,31 +10,58 @@ import java.util.Iterator;
 
 public class ArrayTest{
 
-    static <E>void printArray(Array<E> a){
-        Iterator it=a.iterator();
-        while (it.hasNext()){
-            System.out.println(it.next());
+    @Test
+    public void constructorTest(){
+        try {
+            Array<Integer> test0=new Array<>(-5);
+            fail();//no exception is thrown
         }
+        catch (IllegalArgumentException e){
+            assertTrue(true);//Excepted exception is thrown
+        }
+        catch (Exception e){
+            fail();//did not get the excepted exception
+        }
+
+        Array<Integer> test1=new Array<>(0);
+        assertEquals(0,test1.capacity());
+        assertEquals(0,test1.size());
+
+        Array<String> test2 =new Array<>(10);
+        assertEquals(10,test2.capacity());
+        assertEquals(0,test2.size());
+
     }
 
+    @Test
+    public void sizeTest(){
+        Array<Integer>test=new Array<>(5);
+        test.set(5,7);
+        test.set(21,33);
+        test.set(12,55);
+        test.set(13,234);
+        test.set(32,223);
+        assertEquals(20,test.size());
+    }
+
+    @Test
+    public void capacityTest(){
+        Array<String>test=new Array<>(10);
+        test.set(3,"one");
+        test.set(14,"two");
+        test.set(44,"three");
+        test.set(22,"four");
+        test.set(66,"five");
+        assertEquals(80,test.capacity());
+
+        Array<Integer>test1=new Array<>(0);
+        test1.set(1,111);
+        test1.set(4,444);
+        test1.set(8,888);
+        assertEquals(16,test1.capacity());
+    }
 
 public static void main(String[]args){
-    //Test: constructor, methode size() and capacity()
-    //Test: when capacity is negative, IllegalArgumentException will be thrown
-
-
-    try {
-        Array<Integer> test0=new Array<>(-5);
-        fail();//no exception is thrown
-    }
-    catch (IllegalArgumentException e){
-        assertTrue(true);//Excepted exception is thrown
-    }
-     catch (Exception e){
-         fail();//did not get the excepted exception
-     }
-
-
     //Boundary test : when capacity is 0
     Array<Integer> test1=new Array<>(0);
     System.out.println(test1.capacity());
