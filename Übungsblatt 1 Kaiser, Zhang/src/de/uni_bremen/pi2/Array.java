@@ -19,12 +19,12 @@ public class Array<E> implements Iterable<E> {
     }
 
     int size() {
-
+/*
         for(int i=(capacity-1);i>0;--i){
             if(puffer[i]!=null) {
                 size=i+1;
             }
-        }
+        }*/
         return size;
     }
 
@@ -34,14 +34,20 @@ public class Array<E> implements Iterable<E> {
 
     void set(int index, E value) {
         if (index < 0 ) throw new ArrayIndexOutOfBoundsException();
-        if (capacity == 0) capacity=1;
-        while(index >= capacity) {
-            puffer = Arrays.copyOf(puffer, capacity * 2);
-            capacity +=capacity;
-        }
-        puffer[index] = value;
 
-    }
+        if (capacity == 0) {
+            capacity = 1;
+            puffer = Arrays.copyOf(puffer, capacity );
+        }
+
+            while (index >= capacity) {
+                puffer = Arrays.copyOf(puffer, capacity * 2);//capacity*2     capacity<<1;
+                capacity += capacity;
+            }
+            puffer[index] = value;
+        if (index > size) size = index + 1;
+        }
+
 
     E get(int index) {
         if (index < 0 || index > size() - 1) {
