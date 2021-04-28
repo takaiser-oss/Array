@@ -2,11 +2,10 @@ package de.uni_bremen.pi2;
 
 import static org.junit.Assert.*;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import javax.swing.text.html.HTMLDocument;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayTest{
 
@@ -18,7 +17,7 @@ public class ArrayTest{
     }
 
     @Test
-    public void constructorTest(){
+    public void ArrayTest(){
         try {
             Array<Integer> test0=new Array<>(-5);
             fail();//no exception is thrown
@@ -96,6 +95,7 @@ public class ArrayTest{
         catch (Exception e){
             fail();
         }
+
         for (int i=0;i<50;i++){
             test1.set(i,String.valueOf(i+1));
         }
@@ -108,7 +108,92 @@ public class ArrayTest{
         printArray(test);
     }
 
+    @Test
+    public void getTest(){
+        Array<String> test1=new Array<>(10);
+        for (int i=0;i<50;i++){
+            test1.set(i,String.valueOf(i+1));
+        }
+        for (int i=0;i<50;i++){
+            assertEquals(String.valueOf(i+1),test1.get(i));
+        }
 
+        try {
+            test1.get(-3);
+            fail();
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            assertTrue(true);
+        }
+        catch (Exception e){
+            fail();
+        }
 
+        try {
+            test1.get(55);
+            fail();
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            assertTrue(true);
+        }
+        catch (Exception e){
+            fail();
+        }
+
+    }
+
+    @Test
+    public void testHasNext(){
+        Array<Integer>test=new Array<>(0);
+        Iterator it0=test.iterator();
+        assertFalse(it0.hasNext());
+
+        for (int i=0;i<100;i++){
+            test.set(i,i+1);
+        }
+        Iterator it=test.iterator();
+        for (int i=0;i<100;i++){
+            assertTrue(it.hasNext());
+            it.next();
+        }
+        assertFalse(it.hasNext());
+    }
+
+    @Test
+    public void testNext(){
+        Array<Integer>test=new Array<>(0);
+        Iterator it0=test.iterator();
+        try {
+            it0.next();
+            fail();
+        }
+        catch (NoSuchElementException e){
+            assertTrue(true);
+        }
+        catch (Exception e){
+            fail();
+        }
+
+        for (int i=0;i<100;i++){
+            test.set(i,i+1);
+        }
+        Iterator it=test.iterator();
+        Integer element=1;
+        while (it.hasNext()){
+            assertEquals(element,it.next());
+            element++;
+        }
+        try {
+            it.next();
+            fail();
+        }
+        catch (NoSuchElementException e){
+            assertTrue(true);
+        }
+        catch (Exception e){
+            fail();
+        }
+
+    }
 
 }
