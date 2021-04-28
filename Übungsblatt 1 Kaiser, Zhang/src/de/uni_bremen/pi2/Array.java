@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Array<E> implements Iterable<E> {
-    private int size;
+    int size;
     private int capacity;
     private E[] puffer;
 
@@ -52,7 +52,8 @@ public class Array<E> implements Iterable<E> {
     }
 
     @Override
-// Erzeugen Iterator 
+// Erzeugen Iterator  Beschreibung
+
     public Iterator<E> iterator() {
 
         return new Iterator<E>() {
