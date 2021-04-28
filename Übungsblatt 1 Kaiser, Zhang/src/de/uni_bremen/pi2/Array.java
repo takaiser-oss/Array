@@ -52,7 +52,7 @@ public class Array<E> implements Iterable<E> {
     }
 
     @Override
-    // Erzeugen Iterator
+
     public Iterator<E> iterator() {
 
         return new Iterator<E>() {
