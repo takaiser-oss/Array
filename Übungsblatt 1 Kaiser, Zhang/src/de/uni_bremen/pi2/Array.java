@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Array<E> implements Iterable<E> {
-    int size;
+    private int size;
     private int capacity;
     private E[] puffer;
 
